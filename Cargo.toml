@@ -2,8 +2,13 @@
 name = "libudev-test"
 version = "0.1.0"
 edition = "2021"
+repository = "https://github.com/kevswims/libudev-test"
+description = "Yocto test repo"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 libudev = "0.3"
+jwt = "0.16.0"
+hmac = { version = "0.12", features = ["reset"] }
+sha2 = "0.10"

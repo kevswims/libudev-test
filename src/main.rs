@@ -2,6 +2,11 @@ extern crate libudev;
 
 use std::io;
 
+use hmac::{Hmac, Mac};
+use jwt::SignWithKey;
+use sha2::Sha256;
+use std::collections::BTreeMap;
+
 fn main() {
     let context = libudev::Context::new().unwrap();
     list_devices(&context).unwrap();
@@ -40,6 +45,14 @@ fn list_devices(context: &libudev::Context) -> io::Result<()> {
             println!("    - {:?} {:?}", attribute.name(), attribute.value());
         }
     }
+
+    let key: Hmac<Sha256> = Hmac::new_from_slice(b"some-secret").unwrap();
+    let mut claims = BTreeMap::new();
+    claims.insert("sub", "someone");
+
+    let token_str = claims.sign_with_key(&key).unwrap();
+
+    assert_eq!(token_str, "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzb21lb25lIn0.5wwE1sBrs-vftww_BGIuTVDeHtc1Jsjo-fiHhDwR8m0");
 
     Ok(())
 }
