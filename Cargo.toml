@@ -9,6 +9,6 @@ description = "Yocto test repo"
 
 [dependencies]
 libudev = "0.3"
-jwt = "0.16.0"
+jwt = { version = "0.16.0", features = ["openssl"] }
 hmac = { version = "0.12", features = ["reset"] }
 sha2 = "0.10"
